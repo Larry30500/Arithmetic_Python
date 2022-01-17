@@ -14,34 +14,37 @@
 
 
 ## 摘要
-### 1. 本作品具有 四則運算、次方 及 左右小括弧 之數學運算功能。
-### 2. 輸入時，若檢測到多餘的空格會先刪除，再做數學運算。
-### 3. 將輸出內容皆寫入文件 (.txt)，最後讀取並顯示檔案內容。
+### 1. 本作品具有「四則運算、次方運算及小括號之改變運算順序」的數學運算功能。
+### 2. 使用者輸入資料時，系統會檢測並刪除多餘的空格，最後再進行數學運算。
+### 3. 將輸出結果，寫入至輸出結果檔 (output_result.txt)，最後加以讀取並顯示其輸出結果。
 
 ![arithmetic_python](images/arithmetic_python.gif)
 
-<strong><em>若您有興趣想更了解此程式，請參考下方的聯絡方式，進一步聯絡作者，謝謝參閱。</em></strong>
+<strong><em>假使想要更加了解此程式的話，請參考本頁面底部之作者的聯絡方式。</em></strong>
 
 
 ## 重點程式碼說明
-### 依據數學運算的優先順序，設定 加減乘除、次方 及 左右小括弧 之函式來數學運算 。
+### 按照數學理論上的運算順序，加以定義「加、減、乘、除、次方 和 小括號之改變運算順序」的處理函式。
   ```python
-  # 搜尋得知下一個字元
+  # 預先查看運算式的下一個字元。
   def peek():
     ⋮
-  # 取走當前字元
+    
+  # 取出下一個字元。
   def get():
     ⋮
-  # 當下一個字元為數字時，回傳數字 或 乘10再回傳結果
+    
+  # 當下一個字元為數字時，回傳數字 或 乘 10 再回傳結果。
   def number():
     result = int(get()) - 0
-    ⋮
+
+    if peek() is None: return result
     else:
       while '0' <= peek() <= '9':
         ⋮
     return result
 
-  # 當下一個字元為 ()- 字元時，處理 ()- 符號       
+  # 當下一個字元為【(】、【)】、【-】字元時，處理小括號當中的運算元，或是負號後面的運算元。
   def factor():  
     if '0' <= peek() <= '9':
       return number()
@@ -56,7 +59,7 @@
 
     return 0
 
-  # 當下一個字元為 *xX^/ 字元時，處理 *xX^/ 符號
+  # 當下一個字元為【x】、【X】、【^】字元時，處理【x】、【X】、【^】後面的運算元。
   def term():
     result = factor()
 
@@ -71,7 +74,7 @@
         ⋮
     return result;
 
-  # 當下一個字元為 +- 字元時，處理 +- 符號
+  # 當下一個字元為【+】、【-】字元時，處理【+】、【-】後面的運算元。
   def expression():
     result = term()
 
@@ -83,51 +86,53 @@
     return result;
   ```
 
-### 主程式，將輸出內容皆寫入文件 (.txt)
+### 如下是主程式，是用來將輸出結果，寫入至輸出結果檔 (output_result.txt) 裡面。
   ```pytohn
-  f = open('filename.txt', 'w', encoding = 'utf-8')
+  f = open('output_result.txt', 'w', encoding = 'utf-8')
 
   while True:
-    input_expression = input(請輸入四則運算式：)
+    input_expression = input('請輸入四則運算式：')
+    
+    f.write('請輸入四則運算式：')
+    
+    print('您輸入的四則運算式為：')
+    f.write('您輸入的四則運算式為：')
 
-    print(您輸入的四則運算式為：)
-    f.write(請輸入四則運算式：)
-
-    # 輸入 Q 或 q 字元，則退出程式
+    # 輸入 Q 或 q 字元，則退出程式。
     if input_expression.lower() == 'q':
-      print(退出程式)
-      f.write(退出程式)
+      print('退出程式')
+      f.write('退出程式')
       break
 
     r = p = 0
     available_characters = '1234567890+-*/xX^() '
 
     for p in range(len(input_expression)):
-      # 判別：如果輸入未允許的字元，則 r = 1
+      # 判別：如果輸入未允許的字元，則 r 等於 1。
       if input_expression[p] not in available_characters:
         r = 1
         break
 
-    # 判別：如果 r = 1，輸出錯誤訊息
+    # 判別：如果 r 等於 1，則輸出錯誤訊息。
     if r == 1:
-      print(輸入錯誤，請重新輸入)
-      f.write(輸入錯誤，請重新輸入)
+      print('輸入錯誤，請重新輸入。')
+      f.write('輸入錯誤，請重新輸入。')
 
-    # 判別：如果輸入皆為允許字元，輸出運算結果
+    # 判別：如果輸入皆為允許字元，則輸出運算結果。
     else:
-      #去除輸入字串中的空格
+      # 去除輸入字串中的空格。
       spaces_removed_expression = re.sub(' ', '', input_expression)
-      # 計算空格數量
+      # 計算空格的數量。
       space_amout = len(input_expression) - len(spaces_removed_expression)
 
       copied_expression = spaces_removed_expression
       expression_to_parse = list(spaces_removed_expression)
 
-      # 開始運算
+      # 開始運算。
       result = expression()
 
-      print(您所輸入的空格數量：\n 調整後的四則運算式與計算結果為：)
-      f.write(您所輸入的空格數量：\n 調整後的四則運算式與計算結果為：)
+      print('您所輸入的空格數量：\n 調整後的四則運算式與計算結果：')
+      f.write('您所輸入的空格數量：\n 調整後的四則運算式與計算結果：')
 
   f.close()
 
@@ -135,14 +140,14 @@
   
 ### 讀取並顯示檔案內容
   ```python
-  f = open('filename.txt', 'r', encoding = 'utf-8')
+  f = open('output_result.txt', 'r', encoding = 'utf-8')
   ⋮
-  print(檔案內容皆讀取完畢，程式結束)
+  print('檔案內容皆讀取完畢，程式結束。')
   ```
   
 
 ## 系統環境
-### 作業系統
+### 本程式所在作業系統
 * OS：Windows 7 / 10 (Mac OS、Linux 系統亦可相容)
 
 ### 相關套件
@@ -155,7 +160,7 @@
 
 
 ## 致謝
-*非常感謝指導老師 (Francesco Ke) 提供程式設計的靈感和方向，並細心指導學生編寫程式時，所需注重的細節。*
+*非常感謝指導老師 (Francesco Ke) 提供程式設計的靈感和方向，並充分教導程式設計的注意事項和相關細節。*
 
 *如果您喜歡此專案，記得點擊⭐️支持作者。*
 
