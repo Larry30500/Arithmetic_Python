@@ -16,6 +16,7 @@
 ## 摘要
 ### 1. 本作品具有 四則運算、次方 及 左右小括弧 之數學運算功能。
 ### 2. 輸入時，若檢測到多餘的空格會先刪除，再做數學運算。
+### 3.
 
 ![arithmetic_python](images/arithmetic_python.gif)
 
@@ -23,15 +24,15 @@
 
 
 ## 重點程式碼說明
-### 本作品具有四則運算、次方及左右小括弧之數學運算功能。
+### 依據數學運算的優先順序，設定 加減乘除、次方 及 左右小括弧 之函式來數學運算 。
   ```python
-
+  # 搜尋得知下一個字元
   def peek():
-    if len(expression_to_parse) == 0: return None
-    else: return expression_to_parse[0]
-
-  def get(): return expression_to_parse.pop(0)
-
+    ⋮
+  # 取走當前字元
+  def get():
+    ⋮
+  # 當下一個字元為數字時，回傳數字 或 乘10再回傳結果
   def number():
     result = int(get()) - 0
     ⋮
@@ -40,7 +41,7 @@
         ⋮
     return result
 
-  # 當下一個為 ()- 字元時        
+  # 當下一個字元為 ()- 字元時，處理 ()- 符號       
   def factor():  
     if '0' <= peek() <= '9':
       return number()
@@ -55,7 +56,7 @@
 
     return 0
 
-  # 當下一個為 *xX^/ 字元時
+  # 當下一個字元為 *xX^/ 字元時，處理 *xX^/ 符號
   def term():
     result = factor()
 
@@ -70,7 +71,7 @@
         ⋮
     return result;
 
-  # 當下一個為 +- 字元時 
+  # 當下一個字元為 +- 字元時，處理 +- 符號
   def expression():
     result = term()
 
@@ -80,8 +81,10 @@
       else:
         ⋮
     return result;
+  ```
 
-  # 主程式(寫入文件)
+### 主程式，將輸出內容皆寫入文件 (.txt)
+  ```pytohn
   f = open('filename.txt', 'w', encoding = 'utf-8')
 
   while True:
@@ -130,14 +133,13 @@
 
   ```
   
-  * 讀取並顯示檔案內容
+### 讀取並顯示檔案內容
   ```python
   f = open('filename.txt', 'r', encoding = 'utf-8')
   ⋮
   print(檔案內容皆讀取完畢，程式結束)
-
   ```
-
+  
 
 ## 系統環境
 ### 作業系統
