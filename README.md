@@ -86,22 +86,25 @@
     return result;
   ```
 
-### 如下是主程式，是用來將輸出結果，寫入至輸出結果檔 (output_result.txt) 裡面。
+### 如下為主程式，是用來將輸出結果，寫入至輸出結果檔 (output_result.txt) 裡面。
   ```pytohn
   f = open('output_result.txt', 'w', encoding = 'utf-8')
+  
+  print('----------\n')
+  f.write('----------\n\n')
 
   while True:
     input_expression = input('請輸入四則運算式：')
     
     f.write('請輸入四則運算式：')
     
-    print('您輸入的四則運算式為：')
-    f.write('您輸入的四則運算式為：')
+    print(f'\n您輸入的四則運算式為：{input_expression}')
+    f.write(f'\n您輸入的四則運算式為：{input_expression}')
 
     # 輸入 Q 或 q 字元，則退出程式。
     if input_expression.lower() == 'q':
-      print('退出程式')
-      f.write('退出程式')
+      print('選擇退出，下次再見！！')
+      f.write('選擇退出，下次再見！！')
       break
 
     r = p = 0
@@ -131,8 +134,11 @@
       # 開始運算。
       result = expression()
 
-      print('您所輸入的空格數量：\n 調整後的四則運算式與計算結果：')
-      f.write('您所輸入的空格數量：\n 調整後的四則運算式與計算結果：')
+      print('您所輸入的空格數量：{space_amout}\n 調整後的四則運算式與計算結果：{copied_expression} = {result}', end = '\n\n')
+      print(f'----------', end = '\n\n')
+      
+      f.write('您所輸入的空格數量：{space_amout}\n 調整後的四則運算式與計算結果：{copied_expression} = {result}', end = '\n\n')
+      f.write(f''----------\n\n')
 
   f.close()
 
@@ -140,6 +146,8 @@
   
 ### 讀取並顯示檔案內容
   ```python
+  print('以下將讀取檔案，並顯示內容：')
+  
   f = open('output_result.txt', 'r', encoding = 'utf-8')
   ⋮
   print('檔案內容皆讀取完畢，程式結束。')
