@@ -42,6 +42,7 @@
     else:
       while '0' <= peek() <= '9':
         ⋮
+        
     return result
 
   # 當下一個字元為【(】、【)】、【-】字元時，處理小括號當中的運算元，或是負號後面的運算元。
@@ -51,10 +52,12 @@
 
     elif peek() == '(':
       ⋮
+      
       return result
 
     elif peek() == '-':
       ⋮
+      
       return -factor()
 
     return 0
@@ -68,10 +71,13 @@
 
       if current_char in '*xX':
         ⋮
+        
       elif current_char == '^':
         ⋮
+        
       else:
         ⋮
+        
     return result;
 
   # 當下一個字元為【+】、【-】字元時，處理【+】、【-】後面的運算元。
@@ -81,8 +87,10 @@
     while peek() != None and peek() in '+-':
       if peek() == '+':
         ⋮
+        
       else:
         ⋮
+        
     return result;
   ```
 
@@ -149,6 +157,7 @@
   
   f = open('output_result.txt', 'r', encoding = 'utf-8')
   ⋮
+  
   print('檔案內容皆讀取完畢，程式結束。')
   ```
   
