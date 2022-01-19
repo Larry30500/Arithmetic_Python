@@ -21,6 +21,7 @@
 ![arithmetic_python](images/arithmetic_python.gif)
 
 <strong><em>假使想要更加了解此程式的話，請參考本頁面底部之作者的聯絡方式。</em></strong>
+<br><br>
 
 
 ## 重點程式碼說明
@@ -34,7 +35,7 @@
   def get():
     ⋮
     
-  # 當下一個字元為數字時，回傳數字 或 乘 10 再回傳結果。
+  # 當下一個字元為數字時，回傳數字 或 乘以 10 再回傳結果。
   def number():
     result = int(get()) - 0
 
@@ -45,7 +46,7 @@
         
     return result
 
-  # 當下一個字元為【(】、【)】、【-】字元時，處理小括號當中的運算元，或是負號後面的運算元。
+  # 當下一個字元為【(】、【)】、【-】字元時，則處理小括號當中的運算元，或是負號後面的運算元。
   def factor():  
     if '0' <= peek() <= '9':
       return number()
@@ -62,7 +63,7 @@
 
     return 0
 
-  # 當下一個字元為【x】、【X】、【^】字元時，處理【x】、【X】、【^】後面的運算元。
+  # 當下一個字元為【x】、【X】、【^】字元時，則處理【x】、【X】、【^】後面的運算元。
   def term():
     result = factor()
 
@@ -80,7 +81,7 @@
         
     return result;
 
-  # 當下一個字元為【+】、【-】字元時，處理【+】、【-】後面的運算元。
+  # 當下一個字元為【+】、【-】字元時，則處理【+】、【-】後面的運算元。
   def expression():
     result = term()
 
@@ -94,7 +95,7 @@
     return result;
   ```
 
-### 如下為主程式，是用來將輸出結果，寫入至輸出結果檔 (output_result.txt) 裡面。
+### 如下的主程式，可將輸出結果，寫入至輸出結果檔 (output_result.txt) 裡面。
   ```python
   f = open('output_result.txt', 'w', encoding = 'utf-8')
   
@@ -151,14 +152,14 @@
   f.close()
   ```
   
-### 讀取並顯示檔案內容
+### 讀取並顯示其輸出結果檔的內容
   ```python
-  print('以下將讀取檔案，並顯示內容：')
+  print('以下將讀取其輸出結果檔，並其顯示內容：')
   
   f = open('output_result.txt', 'r', encoding = 'utf-8')
   ⋮
   
-  print('檔案內容皆讀取完畢，程式結束。')
+  print('輸出結果檔的內容已經被讀取完畢')
   ```
   
 
