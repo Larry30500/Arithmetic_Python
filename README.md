@@ -87,7 +87,7 @@
   ```
 
 ### 如下為主程式，是用來將輸出結果，寫入至輸出結果檔 (output_result.txt) 裡面。
-  ```pytohn
+  ```python
   f = open('output_result.txt', 'w', encoding = 'utf-8')
   
   print('----------\n')
@@ -141,7 +141,6 @@
       f.write(f''----------\n\n')
 
   f.close()
-
   ```
   
 ### 讀取並顯示檔案內容
