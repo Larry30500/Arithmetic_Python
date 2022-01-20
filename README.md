@@ -95,6 +95,7 @@
     return result;
   ```
 
+
 ### 如下的主程式，可將輸出結果，寫入至輸出結果檔 (output_result.txt) 裡面。
   ```python
   f = open('output_result.txt', 'w', encoding = 'utf-8')
@@ -151,7 +152,8 @@
 
   f.close()
   ```
-  
+
+
 ### 讀取並顯示其輸出結果檔的內容
   ```python
   print('以下將讀取其輸出結果檔，並其顯示內容：')
@@ -161,7 +163,8 @@
   
   print('輸出結果檔的內容已經被讀取完畢')
   ```
-  
+
+
 
 ## 系統環境
 ### 本程式所在作業系統
