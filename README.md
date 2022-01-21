@@ -157,14 +157,14 @@ f.close()
 
 &nbsp;
 
-### 讀取並顯示其輸出結果檔 (output_result.txt) 之內容
+### 讀取並顯示其輸出結果檔 (output_result.txt) 的內容
 ```python
-print('以下將讀取其輸出結果檔，並其顯示內容：')
+print('以下將讀取其輸出結果檔，並顯示其內容：')
 
 f = open('output_result.txt', 'r', encoding = 'utf-8')
 ⋮
 
-print('輸出結果檔的內容已經被讀取完畢')
+print('輸出結果檔的內容，已經被讀取完畢。')
 ```
 
 &nbsp;
