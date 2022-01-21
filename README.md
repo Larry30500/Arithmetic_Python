@@ -27,145 +27,145 @@
 
 ## 重點程式碼說明
 ### 按照數學理論上的運算順序，加以定義「加、減、乘、除、次方 和 小括號之改變運算順序」的處理函式。
-  ```python
-  # 預先查看運算式的下一個字元。
-  def peek():
-    ⋮
-    
-  # 取出下一個字元。
-  def get():
-    ⋮
-    
-  # 當下一個字元為數字時，回傳數字 或 乘以 10 再回傳結果。
-  def number():
-    result = int(get()) - 0
+```python
+# 預先查看運算式的下一個字元。
+def peek():
+  ⋮
 
-    if peek() is None: return result
-    else:
-      while '0' <= peek() <= '9':
-        ⋮
-        
+# 取出下一個字元。
+def get():
+  ⋮
+
+# 當下一個字元為數字時，回傳數字 或 乘以 10 再回傳結果。
+def number():
+  result = int(get()) - 0
+
+  if peek() is None: return result
+  else:
+    while '0' <= peek() <= '9':
+      ⋮
+
+  return result
+
+# 當下一個字元為【(】、【)】、【-】字元時，則處理小括號當中的運算元，或是負號後面的運算元。
+def factor():  
+  if '0' <= peek() <= '9':
+    return number()
+
+  elif peek() == '(':
+    ⋮
+
     return result
 
-  # 當下一個字元為【(】、【)】、【-】字元時，則處理小括號當中的運算元，或是負號後面的運算元。
-  def factor():  
-    if '0' <= peek() <= '9':
-      return number()
+  elif peek() == '-':
+    ⋮
 
-    elif peek() == '(':
+    return -factor()
+
+  return 0
+
+# 當下一個字元為【x】、【X】、【^】字元時，則處理【x】、【X】、【^】後面的運算元。
+def term():
+  result = factor()
+
+  while peek() != None and peek() in '*xX^/':
+    current_char = get()
+
+    if current_char in '*xX':
       ⋮
-      
-      return result
 
-    elif peek() == '-':
+    elif current_char == '^':
       ⋮
-      
-      return -factor()
 
-    return 0
+    else:
+      ⋮
 
-  # 當下一個字元為【x】、【X】、【^】字元時，則處理【x】、【X】、【^】後面的運算元。
-  def term():
-    result = factor()
+  return result;
 
-    while peek() != None and peek() in '*xX^/':
-      current_char = get()
+# 當下一個字元為【+】、【-】字元時，則處理【+】、【-】後面的運算元。
+def expression():
+  result = term()
 
-      if current_char in '*xX':
-        ⋮
-        
-      elif current_char == '^':
-        ⋮
-        
-      else:
-        ⋮
-        
-    return result;
+  while peek() != None and peek() in '+-':
+    if peek() == '+':
+      ⋮
 
-  # 當下一個字元為【+】、【-】字元時，則處理【+】、【-】後面的運算元。
-  def expression():
-    result = term()
+    else:
+      ⋮
 
-    while peek() != None and peek() in '+-':
-      if peek() == '+':
-        ⋮
-        
-      else:
-        ⋮
-        
-    return result;
-  ```
+  return result;
+```
 
 &nbsp;
 
 ### 如下的主程式，可將輸出結果，寫入至輸出結果檔 (output_result.txt) 裡面。
-  ```python
-  f = open('output_result.txt', 'w', encoding = 'utf-8')
-  
-  print('----------\n')
-  f.write('----------\n\n')
+```python
+f = open('output_result.txt', 'w', encoding = 'utf-8')
 
-  while True:
-    input_expression = input('請輸入四則運算式：')
-    
-    f.write('請輸入四則運算式：')
-    
-    print(f'\n您輸入的四則運算式為：{input_expression}')
-    f.write(f'\n您輸入的四則運算式為：{input_expression}')
+print('----------\n')
+f.write('----------\n\n')
 
-    # 輸入 Q 或 q 字元，則退出程式。
-    if input_expression.lower() == 'q':
-      print('選擇退出，下次再見！！')
-      f.write('選擇退出，下次再見！！')
+while True:
+  input_expression = input('請輸入四則運算式：')
+
+  f.write('請輸入四則運算式：')
+
+  print(f'\n您輸入的四則運算式為：{input_expression}')
+  f.write(f'\n您輸入的四則運算式為：{input_expression}')
+
+  # 輸入 Q 或 q 字元，則退出程式。
+  if input_expression.lower() == 'q':
+    print('選擇退出，下次再見！！')
+    f.write('選擇退出，下次再見！！')
+    break
+
+  r = p = 0
+  available_characters = '1234567890+-*/xX^() '
+
+  for p in range(len(input_expression)):
+    # 判別：如果輸入未允許的字元，則 r 等於 1。
+    if input_expression[p] not in available_characters:
+      r = 1
       break
 
-    r = p = 0
-    available_characters = '1234567890+-*/xX^() '
+  # 判別：如果 r 等於 1，則輸出錯誤訊息。
+  if r == 1:
+    print('輸入錯誤，請重新輸入。')
+    f.write('輸入錯誤，請重新輸入。')
 
-    for p in range(len(input_expression)):
-      # 判別：如果輸入未允許的字元，則 r 等於 1。
-      if input_expression[p] not in available_characters:
-        r = 1
-        break
+  # 判別：如果輸入皆為允許字元，則輸出運算結果。
+  else:
+    # 去除輸入字串中的空格。
+    spaces_removed_expression = re.sub(' ', '', input_expression)
+    # 計算空格的數量。
+    space_amout = len(input_expression) - len(spaces_removed_expression)
 
-    # 判別：如果 r 等於 1，則輸出錯誤訊息。
-    if r == 1:
-      print('輸入錯誤，請重新輸入。')
-      f.write('輸入錯誤，請重新輸入。')
+    copied_expression = spaces_removed_expression
+    expression_to_parse = list(spaces_removed_expression)
 
-    # 判別：如果輸入皆為允許字元，則輸出運算結果。
-    else:
-      # 去除輸入字串中的空格。
-      spaces_removed_expression = re.sub(' ', '', input_expression)
-      # 計算空格的數量。
-      space_amout = len(input_expression) - len(spaces_removed_expression)
+    # 開始運算。
+    result = expression()
 
-      copied_expression = spaces_removed_expression
-      expression_to_parse = list(spaces_removed_expression)
+    print('您所輸入的空格數量：{space_amout}\n 調整後的四則運算式與計算結果：{copied_expression} = {result}', end = '\n\n')
+    print(f'----------', end = '\n\n')
 
-      # 開始運算。
-      result = expression()
+    f.write('您所輸入的空格數量：{space_amout}\n 調整後的四則運算式與計算結果：{copied_expression} = {result}', end = '\n\n')
+    f.write(f''----------\n\n')
 
-      print('您所輸入的空格數量：{space_amout}\n 調整後的四則運算式與計算結果：{copied_expression} = {result}', end = '\n\n')
-      print(f'----------', end = '\n\n')
-      
-      f.write('您所輸入的空格數量：{space_amout}\n 調整後的四則運算式與計算結果：{copied_expression} = {result}', end = '\n\n')
-      f.write(f''----------\n\n')
-
-  f.close()
-  ```
+f.close()
+```
 
 &nbsp;
 
 ### 讀取並顯示其輸出結果檔的內容
-  ```python
-  print('以下將讀取其輸出結果檔，並其顯示內容：')
-  
-  f = open('output_result.txt', 'r', encoding = 'utf-8')
-  ⋮
-  
-  print('輸出結果檔的內容已經被讀取完畢')
-  ```
+```python
+print('以下將讀取其輸出結果檔，並其顯示內容：')
+
+f = open('output_result.txt', 'r', encoding = 'utf-8')
+⋮
+
+print('輸出結果檔的內容已經被讀取完畢')
+```
 
 &nbsp;
 
