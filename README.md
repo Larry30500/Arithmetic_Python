@@ -157,7 +157,7 @@ f.close()
 
 &nbsp;
 
-### 讀取並顯示其輸出結果檔 (output_result.txt) 的內容
+### 讀取並顯示其輸出結果檔 (output_result.txt) 的內容。
 ```python
 print('以下將讀取其輸出結果檔，並顯示其內容：')
 
