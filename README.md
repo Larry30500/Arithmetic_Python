@@ -146,11 +146,11 @@ while True:
     # 開始運算。
     result = expression()
 
-    print('您所輸入的空格數量：{space_amout}\n 調整後的四則運算式與計算結果：{copied_expression} = {result}', end = '\n\n')
+    print(f'您所輸入的空格數量：{space_amout}\n 調整後的四則運算式與計算結果：{copied_expression} = {result}', end = '\n\n')
     print(f'----------', end = '\n\n')
 
-    f.write('您所輸入的空格數量：{space_amout}\n 調整後的四則運算式與計算結果：{copied_expression} = {result}', end = '\n\n')
-    f.write(f''----------\n\n')
+    f.write(f'您所輸入的空格數量：{space_amout}\n 調整後的四則運算式與計算結果：{copied_expression} = {result}', end = '\n\n')
+    f.write(f'----------\n\n')
 
 f.close()
 ```
